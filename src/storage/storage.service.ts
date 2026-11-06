@@ -16,7 +16,7 @@ export class StorageService {
   }
  
   async uploadFile(
-    file: Express.Multer.File,
+    file: any,
     folder: string,
   ): Promise<string> {
     const cleanFolder = folder.replace(/^\/+|\/+$/g, '');
