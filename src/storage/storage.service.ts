@@ -11,11 +11,7 @@ export class StorageService {
  
   constructor() {
     this.s3 = new S3Client({
-      region: envs.awsRegion,
-      credentials: {
-        accessKeyId: envs.awsAccessKeyId,
-        secretAccessKey: envs.awsSecretAccessKey,
-      },
+      region: envs.AWS_REGION
     });
   }
  
@@ -30,7 +26,7 @@ export class StorageService {
     try {
       await this.s3.send(
         new PutObjectCommand({
-          Bucket: envs.awsBucketName,
+          Bucket: envs.AWS_BUCKET,
           Key: key,
           Body: file.buffer,
           ContentType: file.mimetype,
@@ -42,6 +38,6 @@ export class StorageService {
       );
     }
  
-    return `https://${envs.awsBucketName}.s3.${envs.awsRegion}.amazonaws.com/${key}`;
+    return `https://${envs.AWS_BUCKET}.s3.${envs.AWS_REGION}.amazonaws.com/${key}`;
   }
 }
