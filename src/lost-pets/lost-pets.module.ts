@@ -1,0 +1,24 @@
+import { Module } from '@nestjs/common';
+import { LostPetsController } from './lost-pets.controller';
+import { EmailModule } from 'src/email/email.module';
+import { LostPet } from './entities/lost-pet-entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { LostPetsService } from './lost-pets.service';
+import { AuthModule } from 'src/auth/auth.module';
+import { CacheModule } from 'src/cache/cache.module';
+import { StorageModule } from 'src/storage/storage.module';
+
+@Module({
+  imports: [
+    EmailModule,
+    TypeOrmModule.forFeature([
+      LostPet
+    ]),
+    AuthModule,
+    CacheModule,
+    StorageModule
+  ],
+  controllers: [LostPetsController],
+  providers: [LostPetsService]
+})
+export class LostPetsModule {}
